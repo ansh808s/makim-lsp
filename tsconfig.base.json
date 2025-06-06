@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "commonjs",
     "lib": ["ES2020"],
     "allowJs": false,
     "declaration": true,
@@ -12,8 +12,10 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
-  },
-  "include": ["packages/**/*/src"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/__tests__"]
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  }
 }
