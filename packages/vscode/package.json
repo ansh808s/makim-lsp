@@ -1,0 +1,42 @@
+{
+  "name": "makim",
+  "publisher": "makim",
+  "version": "1.0.0",
+  "main": "./dist/extension.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "build:test": "rm -rf dist-tests && tsc -p tsconfig.test.json",
+    "test": "vscode-test"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "activationEvents": [
+    "onLanguage:makim"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "makim",
+        "aliases": [
+          "Makim",
+          "makim"
+        ],
+        "extensions": [
+          ".makim.yaml",
+          ".makim.yml"
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/vscode": "^1.100.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "vscode": "^1.1.37"
+  }
+}
