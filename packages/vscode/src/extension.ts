@@ -40,7 +40,6 @@ export function activate(context: ExtensionContext) {
 
   context.subscriptions.push(client);
 
-  client.start();
   client.start().then(() => {
     console.log('Language client started!');
   });
