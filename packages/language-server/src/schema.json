@@ -1,0 +1,371 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Makim Configuration Schema",
+  "type": "object",
+  "required": ["groups"],
+  "properties": {
+    "env-file": {
+      "type": "string",
+      "description": "Path to the environment file."
+    },
+    "env": {
+      "type": "object",
+      "description": "Environment variables for the group.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "vars": {
+      "type": "object",
+      "description": "Variables for the group.",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean", "array", "object"]
+      }
+    },
+    "backend": {
+      "type": "string",
+      "description": "Shell backend to use."
+    },
+    "dir": {
+      "type": "string",
+      "description": "Change the directory to a specific path."
+    },
+    "hosts": {
+      "type": "object",
+      "description": "Configuration for remote hosts.",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["host", "user"],
+          "properties": {
+            "host": {
+              "type": "string",
+              "description": "Hostname or IP address of the remote host."
+            },
+            "user": {
+              "type": "string",
+              "description": "Username for SSH connection."
+            },
+            "password": {
+              "type": "string",
+              "description": "Password for SSH connection (optional)."
+            },
+            "port": {
+              "type": "string",
+              "description": "SSH port number (default is 22)."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "groups": {
+      "type": "object",
+      "description": "Task groups defined by the user.",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["tasks"],
+          "properties": {
+            "backend": {
+              "type": "string",
+              "description": "Shell backend to use."
+            },
+            "help": {
+              "type": "string",
+              "description": "Description of the group."
+            },
+            "env-file": {
+              "type": "string",
+              "description": "Path to the environment file for the group."
+            },
+            "env": {
+              "type": "object",
+              "description": "Environment variables for the group.",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "dir": {
+              "type": "string",
+              "description": "Change the directory to a specific path."
+            },
+            "vars": {
+              "type": "object",
+              "description": "Variables for the group.",
+              "additionalProperties": {
+                "type": ["string", "number", "boolean", "array", "object"]
+              }
+            },
+            "tasks": {
+              "type": "object",
+              "description": "Tasks within the group.",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "remote": {
+                      "type": "string",
+                      "description": "Name of the remote host to execute the task on."
+                    },
+                    "help": {
+                      "type": "string",
+                      "description": "Description of the task."
+                    },
+                    "backend": {
+                      "type": "string",
+                      "description": "Shell backend for the task."
+                    },
+                    "run": {
+                      "type": "string",
+                      "description": "Command to execute."
+                    },
+                    "env-file": {
+                      "type": "string",
+                      "description": "Path to the environment file for the task."
+                    },
+                    "env": {
+                      "type": "object",
+                      "description": "Environment variables for the task.",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "dir": {
+                      "type": "string",
+                      "description": "Change the directory to a specific path."
+                    },
+                    "args": {
+                      "type": "object",
+                      "description": "Arguments for the task.",
+                      "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                          "type": "object",
+                          "required": ["help", "type"],
+                          "properties": {
+                            "help": {
+                              "type": "string",
+                              "description": "Description of the argument."
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": ["string", "bool"],
+                              "description": "Type of the argument."
+                            },
+                            "default": {
+                              "type": ["string", "boolean"],
+                              "description": "Default value for the argument."
+                            },
+                            "required": {
+                              "type": "boolean",
+                              "description": "Whether the argument is required."
+                            },
+                            "action": {
+                              "type": "string",
+                              "enum": ["store_true"],
+                              "description": "Action to perform with the argument."
+                            },
+                            "interactive": {
+                              "type": "boolean",
+                              "description": "Set the argument as interactive."
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "vars": {
+                      "type": "object",
+                      "description": "Variables for the group.",
+                      "additionalProperties": {
+                        "type": [
+                          "string",
+                          "number",
+                          "boolean",
+                          "array",
+                          "object"
+                        ]
+                      }
+                    },
+                    "hooks": {
+                      "type": "object",
+                      "description": "Hooks for the task.",
+                      "properties": {
+                        "pre-run": {
+                          "type": "array",
+                          "description": "Tasks to run before this task.",
+                          "items": {
+                            "type": "object",
+                            "required": ["task"],
+                            "properties": {
+                              "task": {
+                                "type": "string",
+                                "description": "Name of the task to run."
+                              },
+                              "args": {
+                                "type": "object",
+                                "description": "Arguments to pass to the dependency task.",
+                                "additionalProperties": {
+                                  "type": ["string", "boolean"]
+                                }
+                              },
+                              "if": {
+                                "type": "string",
+                                "description": "Conditional expression to execute the task."
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        },
+                        "post-run": {
+                          "type": "array",
+                          "description": "Tasks to run after this task.",
+                          "items": {
+                            "type": "object",
+                            "required": ["task"],
+                            "properties": {
+                              "task": {
+                                "type": "string",
+                                "description": "Name of the task to run."
+                              },
+                              "args": {
+                                "type": "object",
+                                "description": "Arguments to pass to the dependency task.",
+                                "additionalProperties": {
+                                  "type": ["string", "boolean"]
+                                }
+                              },
+                              "if": {
+                                "type": "string",
+                                "description": "Conditional expression to execute the task."
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        },
+                        "failure": {
+                          "type": "array",
+                          "description": "Tasks to run if this task fails",
+                          "items": {
+                            "type": "object",
+                            "required": ["task"],
+                            "properties": {
+                              "task": {
+                                "type": "string",
+                                "description": "Name of the task to run."
+                              },
+                              "args": {
+                                "type": "object",
+                                "description": "Arguments to pass to the dependency task.",
+                                "additionalProperties": {
+                                  "type": ["string", "boolean"]
+                                }
+                              },
+                              "if": {
+                                "type": "string",
+                                "description": "Conditional expression to execute the task."
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "matrix": {
+                      "type": "object",
+                      "description": "Matrix variables for the task.",
+                      "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "log": {
+                      "type": "object",
+                      "description": "Logging configuration for the task.",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "description": "File path to store logs."
+                        },
+                        "level": {
+                          "type": "string",
+                          "description": "Specifies which stream to log. Options: 'err' for stderr, 'out' for stdout, 'both' for both.",
+                          "enum": ["err", "out", "both"]
+                        },
+                        "format": {
+                          "type": "string",
+                          "description": "Optional log format string (e.g., '%(levelname)s - %(asctime)s - %(message)s')."
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "retry": {
+                      "type": "object",
+                      "description": "Retry configuration for the task.",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "description": "Number of times to retry the task on failure."
+                        },
+                        "delay": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "description": "Seconds to wait before retrying the task."
+                        }
+                      }
+                    },
+                    "if": {
+                      "type": "string",
+                      "description": "Conditional expression to execute the task."
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "scheduler": {
+      "type": "object",
+      "description": "Scheduler configuration for tasks",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["schedule", "task"],
+          "properties": {
+            "schedule": {
+              "type": "string",
+              "description": "Cron-style schedule for the task (e.g., '* * * * *' for every minute)"
+            },
+            "task": {
+              "type": "string",
+              "description": "Full task path in the format 'group.task'"
+            },
+            "args": {
+              "type": "object",
+              "description": "Arguments to pass to the scheduled task",
+              "additionalProperties": {
+                "type": ["string", "boolean"]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
