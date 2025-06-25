@@ -17,6 +17,7 @@ export default [
       '**/dist',
       'pnpm-lock.yaml',
       'pnpm-workspace.yaml',
+      'node_modules',
     ],
   },
 
