@@ -25,9 +25,24 @@
         "extensions": [
           ".makim.yaml",
           ".makim.yml"
-        ]
+        ],
+        "configuration": "./language-configuration.json"
       }
-    ]
+    ],
+    "grammars": [
+      {
+        "language": "makim",
+        "scopeName": "source.yaml",
+        "path": "./syntaxes/yaml.tmLanguage.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[makim]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+      }
+    }
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
