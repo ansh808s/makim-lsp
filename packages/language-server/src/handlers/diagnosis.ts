@@ -6,7 +6,7 @@ import {
   TextDocumentChangeEvent,
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { validateDocument } from '../validators/schema';
+import { validateDocument } from '../lib/diagnosis';
 
 export class DiagnosisHandler {
   private connection: Connection;
