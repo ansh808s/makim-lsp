@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json && cp src/schema.json dist/schema.json"
+    "build": "rm -rf dist && tsc -p tsconfig.json && mkdir -p dist/schema && cp -f src/schema/makim.schema.json dist/schema/makim.schema.json"
   },
   "keywords": [],
   "author": "",

@@ -3,7 +3,7 @@ import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 import * as yaml from 'yaml';
 import fs from 'fs';
 import path from 'path';
-import { getJSONPathRange, getYAMLErrorRange } from '../utils/yaml';
+import { getJSONPathRange, getYAMLErrorRange } from './yaml';
 
 interface ValidationResult {
   diagnostics: Diagnostic[];
@@ -14,7 +14,10 @@ let schema: unknown;
 
 const loadSchema = (): unknown => {
   if (!schema) {
-    const schemaPath = path.resolve(__dirname, '../schema.json');
+    const schemaPath = path.resolve(
+      __dirname,
+      '../../schema/makim.schema.json',
+    );
     const schemaContent = fs.readFileSync(schemaPath, 'utf-8');
     schema = JSON.parse(schemaContent);
   }
