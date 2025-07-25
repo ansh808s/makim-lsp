@@ -12,7 +12,7 @@ interface ValidationResult {
 
 let schema: unknown;
 
-const loadSchema = (): unknown => {
+export const loadSchema = (): unknown => {
   if (!schema) {
     const schemaPath = path.resolve(
       __dirname,
@@ -73,7 +73,11 @@ export function validateDocument(content: string): ValidationResult {
       return { diagnostics };
     }
 
-    const ajv = new Ajv({ allErrors: true, verbose: true });
+    const ajv = new Ajv({
+      allErrors: true,
+      verbose: true,
+      allowUnionTypes: true,
+    });
     const validate = ajv.compile(schema as AnySchema);
     const valid = validate(parsed);
 
