@@ -10,6 +10,9 @@ export function handleInitialize(): InitializeResult {
       completionProvider: {
         resolveProvider: true,
       },
+      codeLensProvider: {
+        resolveProvider: true,
+      },
     },
   };
 }
