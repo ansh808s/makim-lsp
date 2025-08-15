@@ -106,7 +106,6 @@ export function handleCompletion(
 ): CompletionItem[] {
   const schema = loadSchema() as JSONSchema;
   const path = getPathAtPosition(content, position);
-  console.log('YAML Path at Cursor:', path);
 
   const schemaSubtree = getSchemaSubtree(schema, path);
   const currentNode = getNodeAtPath(content, path.slice(0, -1));
