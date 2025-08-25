@@ -1,11 +1,13 @@
 {
   "name": "language-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Language server for makim",
   "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json && mkdir -p dist/schema && cp -f src/schema/makim.schema.json dist/schema/makim.schema.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "packge": "pnpm pack"
   },
   "keywords": [],
   "author": "",
