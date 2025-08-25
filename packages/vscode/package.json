@@ -3,13 +3,21 @@
   "publisher": "makim",
   "version": "1.0.0",
   "main": "./dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makim-org/makim-lsp"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "build:test": "rm -rf dist-tests && tsc -p tsconfig.test.json",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "package": "pnpm vsce package --no-dependencies",
+    "release": "pnpm vsce publish --no-dependencies"
   },
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.103.0"
   },
   "activationEvents": [
     "onLanguage:makim"
@@ -49,9 +57,10 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/vscode": "^1.100.0",
+    "@types/vscode": "^1.103.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
-    "vscode": "^1.1.37"
+    "@vscode/vsce": "^3.6.0",
+    "esbuild": "^0.25.9"
   }
 }
