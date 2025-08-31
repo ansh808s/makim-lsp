@@ -10,9 +10,7 @@ import {
 let client: LanguageClient;
 
 export function activate(context: vscode.ExtensionContext) {
-  const serverModule = context.asAbsolutePath(
-    path.join('..', 'language-server', 'dist', 'server.js'),
-  );
+  const serverModule = require.resolve('@makim/language-server/dist/server.js');
 
   const serverOptions: ServerOptions = {
     run: {

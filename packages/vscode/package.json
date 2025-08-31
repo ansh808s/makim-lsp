@@ -11,10 +11,8 @@
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "build:test": "rm -rf dist-tests && tsc -p tsconfig.test.json",
     "test": "vscode-test",
-    "vscode:prepublish": "npm run esbuild-base -- --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
-    "package": "pnpm vsce package --no-dependencies",
-    "release": "pnpm vsce publish --no-dependencies"
+    "package": "npx vsce package",
+    "release": "npx vsce publish"
   },
   "engines": {
     "vscode": "^1.103.0"
@@ -53,6 +51,7 @@
     }
   },
   "dependencies": {
+    "@makim/language-server": "^1.0.1",
     "vscode-languageclient": "^9.0.1"
   },
   "devDependencies": {
