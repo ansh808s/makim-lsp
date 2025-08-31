@@ -1,7 +1,7 @@
 {
   "name": "makim",
   "publisher": "makim",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/extension.js",
   "repository": {
     "type": "git",
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "build:test": "rm -rf dist-tests && tsc -p tsconfig.test.json",
+    "vscode:prepublish": "npm run build",
     "test": "vscode-test",
     "package": "npx vsce package",
     "release": "npx vsce publish"
