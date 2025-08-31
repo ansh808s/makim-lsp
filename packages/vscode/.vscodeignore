@@ -1,0 +1,7 @@
+src/**
+tests/**
+dist-tests/**
+out/**
+*.ts
+tsconfig*.json
+.vscode-test.mjs
