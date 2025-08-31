@@ -3,7 +3,7 @@
 [![Makim Website](https://img.shields.io/badge/docs-makim--org-brightgreen)](https://makim-org.github.io/makim/)
 
 **Makim LSP** provides Language Server Protocol (LSP) support for [Makim](https://makim-org.github.io/makim/),  
-a modern alternative to `Makefile` with a YAML-based task runner configuration.
+a modern alternative to `makefile` with a YAML-based task runner configuration.
 
 ---
 
