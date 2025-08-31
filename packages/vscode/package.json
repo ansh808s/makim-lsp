@@ -1,7 +1,9 @@
 {
   "name": "makim",
   "publisher": "makim",
-  "version": "1.0.1",
+  "license": "BSD-3-Clause",
+  "icon": "images/makim.png",
+  "version": "1.0.2",
   "main": "./dist/extension.js",
   "repository": {
     "type": "git",
